@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                xxsh 'py.test --junit-xml test-reports/results.xml sources/test_calc.py'
+                sh 'py.test --junit-xml test-reports/results.xml sources/test_calc.py'
             }
             post {
                 always {
@@ -29,13 +29,6 @@ pipeline {
                     archiveArtifacts 'dist/add2vals'
                 }
             }
-        }
-    }
-    post {
-        failure {
-            mail to: 'dellyfong@gmail.com',
-                 subject: "Failed pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Testing ${env.BUILD_URL}"
         }
     }
 }
